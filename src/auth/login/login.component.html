@@ -1,0 +1,71 @@
+<div class="container-fluid main-div">
+    <div class="login-div">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="assets/signup-left.jpeg" alt="">
+        </div>
+        <div class="col-md-6">
+          <div class="login-top-bar">
+            <div class="vibeshot-logo">
+              <img src="../../assets/VibeShot.png" alt="" height="30px"><span>VibeShot</span>
+            </div>
+            
+          </div>
+          <div class="toggle">
+            <label for="Login" class="toggle-label">Login</label>
+            <input type="radio" name="login_signup" id="Login" value="Login" class="d-none" (click)="handleToggle('Login')">
+            <label for="Signup" class="toggle-label">SignUp</label>
+            <input type="radio" name="login_signup" id="Signup" value="Signup" class="d-none" (click)="handleToggle('Signup')">
+          </div>
+          
+            <div *ngIf="toggledValue === 'Login'" >
+              <!-- Login Form -->
+          <div class="signup-div"  [@slideInOut]>
+
+              <div class="container-fluid">
+                <form action="" [formGroup]="LoginForm">
+                  
+                  <div class="form-group">
+                    <label for="email" class="input-label">Email</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" formControlName="email">
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="input-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter Password" formControlName="password">
+                  </div>
+                  <div class="d-flex justify-content-between mt-2">
+                    <p class="forget-password">
+                      <input type="checkbox" name="remember_me" id="remember_me" value="remember_me">&nbsp;Remember Me
+                    </p>
+                    <p><a href="" class="forget-password">Forgot Password?</a></p>
+                  </div>
+                  <div class="d-flex justify-content-center mt-2">
+                    <button type="submit" class="vibeShot-primary-btn" (click)="onLogin()">Login</button>
+                  </div>
+                </form>
+                <div class="social-login">
+                  <div class="divider">
+                    <span>OR</span>
+                  </div>
+                  <div class="subtext">Login or sign up with</div>
+                  <div class="icons">
+                    <div class="icon"><img src="../../assets/facebook.png" alt="" class="facebook"></div>
+                    <div class="icon"><img src="../../assets/google.png" alt="" class="google"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div *ngIf="toggledValue === 'Signup'"  >
+                <div class="signup-div" [@slideInOut]>
+                    <app-signup></app-signup>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="load-spinner" *ngIf="loader">
+      <app-spinner></app-spinner>
+      </div>
+  </div>
+ 

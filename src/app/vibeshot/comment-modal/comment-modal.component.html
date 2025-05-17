@@ -1,0 +1,31 @@
+     <!-- Comment Section -->
+  <div class="comments-section">
+    <div class="header">
+      <h3>Comments</h3>
+      <span class="close-btn" (click)="closeCMTModal()">✖</span>
+    </div>
+  
+   <div class="comment-container">
+    <div class="comment" *ngFor="let comment of comments">
+        <img [src]="comment.profilePic" class="profile-pic" alt="Profile Picture">
+        <div class="comment-content">
+          <div>
+            <strong>{{ comment.username }}</strong>
+          </div>
+          <p>{{ comment.text }}</p>
+          <div class="comment-footer">
+            <span>{{ comment.time }}</span> ·
+            <span>{{ comment.likes }} likes</span>
+            <span *ngIf="comment.replies"> · {{ comment.replies }} replies</span>
+          </div>
+        </div>
+        <span class="options">⋮</span>
+      </div>
+   </div>
+  
+    <div class="comment-input">
+      <img [src]="userProfile.profilePic" class="profile-pic-small" alt="Your Profile">
+      <input type="text" [(ngModel)]="newComment" placeholder="Add a comment..." (keyup.enter)="addComment()">
+      <button (click)="addComment()">➤</button>
+    </div>
+  </div>

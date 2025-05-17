@@ -1,0 +1,86 @@
+/* Navbar Styling */
+.top-bar {
+    background: white;
+    border-bottom: 1px solid #d1d0d0;
+    padding: 10px 2em;
+}
+
+/* Search Bar */
+.search-container {
+    width: 100%;
+    max-width: 300px;
+}
+
+.input-group-text {
+    border-left: none;
+    border-radius: 0px 5px 5px 0px;
+    background: white;
+}
+
+.search-input {
+    border-right: none;
+}
+
+/* Icons */
+.icon, .notification-icon {
+    height: 25px;
+    width: 25px;
+}
+
+.notification-icon {
+    height: 30px;
+    width: 30px;
+}
+
+/* Profile */
+.profile-div {
+    border: 1px solid;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .top-bar {
+        padding: 10px 1em;
+    }
+
+    .search-container {
+        max-width: 200px;
+    }
+
+    .nav-icons {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .profile-div {
+        height: 30px;
+        width: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 10px;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .icon, .notification-icon {
+        height: 22px;
+        width: 22px;
+    }
+
+    .nav-icons {
+        justify-content: center;
+        margin-top: 10px;
+    }
+}

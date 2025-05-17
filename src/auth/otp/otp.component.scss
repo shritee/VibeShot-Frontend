@@ -1,0 +1,24 @@
+
+h2 {
+    color: #333;
+}
+.otp-container{
+    position: relative;
+    height: 250px;
+    // text-align: center;
+}
+.otp {
+    font-size: 24px;
+    font-weight: bold;
+    outline: none;
+    width: 2em;
+    text-align: center;
+    margin: 5px;
+    height: 2em;
+    border-radius: 5px;
+    border: 1px solid;
+}
+.otp-btn{
+    position: absolute;
+    bottom: 10px;
+}

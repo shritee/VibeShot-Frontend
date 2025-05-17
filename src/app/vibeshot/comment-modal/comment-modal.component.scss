@@ -1,0 +1,109 @@
+  
+  /* Centered Comments Section */
+  .comments-section {
+    width: 400px;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Position relative for the close button */
+    z-index: 1010; /* Ensure the comments section is on top of the overlay */
+    position: relative;
+    top: 2em;
+    right: 0px;
+    left: 35%;
+  }
+  
+  /* Header of the Comments Section */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Close Button */
+  .close-btn {
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  /* Each Comment */
+  .comment {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+  
+  /* Profile Picture of the Commenter */
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  /* Content Area of the Comment */
+  .comment-content {
+    flex: 1;
+    background: #f1f1f1;
+    padding: 8px;
+    border-radius: 10px;
+  }
+  
+  /* Footer of the Comment */
+  .comment-footer {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+  }
+  
+  /* Options Menu for the Comment */
+  .options {
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  /* Input Area for New Comment */
+  .comment-input {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+  
+  /* Profile Picture of the User Adding a Comment */
+  .profile-pic-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  /* Input Field for Comment */
+  .comment-input input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  /* Button to Submit a Comment */
+  .comment-input button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #1877F2;
+  }
+  .comment-container{
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+  .comment-container::-webkit-scrollbar {
+    width: 0px; /* Hide the scrollbar */
+    height: 0px; /* Hide the scrollbar */
+}
