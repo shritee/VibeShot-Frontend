@@ -34,7 +34,6 @@ profileImage= localStorage.getItem('userProfile')
   ListOfPosts:any=[]
   usersWithImages: any;
   constructor(private authService:AuthService,private toastr:ToastrService){
-    window.location.reload();
     this.getAllPosts();
     this.getundollowedUser();
     this.getFollowedUsersWithImages();
