@@ -2,6 +2,7 @@ import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-otp',
@@ -13,6 +14,7 @@ export class OtpComponent implements OnInit {
   private router = inject(Router);
   private authService = inject(AuthService);
   private route = inject(ActivatedRoute);
+  private toastr = inject(ToastrService);
   @ViewChild('otpInput') otpInput !: ElementRef;
 formattedTime: string='00:60';
   otpInputs: any =[];
@@ -81,6 +83,9 @@ verifyOTP() {
         localStorage.setItem('authToken', res.token);
         localStorage.setItem("userdetails",JSON.stringify(res.user));
       }
+    },
+    error:err=>{
+      this.toastr.error(err.error.message)
     }
   });
 }

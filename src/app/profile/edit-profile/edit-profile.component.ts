@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -10,14 +11,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class EditProfileComponent {
   profileForm: FormGroup;
-  profileImage = '../../assets/VibeShot.png'; // Default profile image@
+  profileImage = localStorage.getItem('userProfile'); // Default profile image@
   @ViewChild('uploadprofilePic')uploadprofilePic !: ElementRef
-  constructor(private fb: FormBuilder) {
+  getUser = localStorage.getItem('userdetails');
+  UserDetails = this.getUser?JSON.parse(this.getUser):''
+  constructor(private fb: FormBuilder,private authservice:AuthService) {
     this.profileForm = this.fb.group({
-      username: ['johndoe'],
-      fullName: ['John Doe'],
-      bio: ['Digital creator | Photographer | Travel enthusiast'],
-      website: ['johndoe.com']
+      username: [this.UserDetails.username],
+      fullName: [this.UserDetails.display_name],
+      bio: [],
+      website: []
     });
   }
 
@@ -33,4 +36,38 @@ export class EditProfileComponent {
     console.log('Profile updated:', this.profileForm.value);
     alert('Changes saved!');
   }
+onFileUpload(fileInput: HTMLInputElement) {
+  const file = fileInput.files?.[0];  // Get the first selected file
+
+  if (file) {
+    let UserDetails = localStorage.getItem('userdetails');
+
+if (UserDetails !== null) {
+  let UserID = JSON.parse(UserDetails);
+  console.log(UserID);
+   let form = new FormData();
+     form.append('file', file); 
+     form.append('description', 'profile'); 
+     form.append('userId', UserID.id); 
+    this.authservice.uploadProfile(form).subscribe(res=>{
+      console.log(res);
+      
+      setTimeout(() => {
+      this.authservice.getProfileImage(UserID.id).subscribe(dataUrl => {
+    this.profileImage = dataUrl;
+    localStorage.setItem('userProfile',this.profileImage)
+  });
+      }, 100);
+    })
+} else {
+  console.warn('userdetails not found in localStorage');
+}
+
+   
+    // You can now use this file, e.g., send it to a backend or preview it
+  } else {
+    console.log('No file selected');
+  }
+}
+
 }

@@ -163,4 +163,20 @@
     border-radius: 5px;
     object-fit: cover;
   }
-  
+  .upload-post{
+    height: 200px;
+    border: 1px dashed gray;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+  }
+  .upload-btn-div{
+    position: absolute;
+    bottom: 10px;
+    left: 38%;
+  }
+  .uploaded-post{
+    position: absolute;
+    left: 35%;
+    top: 25%;
+  }

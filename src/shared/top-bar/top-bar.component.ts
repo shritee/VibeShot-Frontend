@@ -29,6 +29,7 @@ onLogout(){
   },err=>{
     this.toastr.error(err.error.message);
     this.loader = false;
+    this.router.navigate(['/'])
 })
 }
 }

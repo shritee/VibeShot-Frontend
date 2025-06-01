@@ -5,7 +5,7 @@
             <div class="user-list-card p-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="fw-bold fs-12">Friends</h5>
-                    <span class="online-count fs-12">4 Online</span>
+                    <span class="online-count fs-12">{{friendsList.length}} Online</span>
                 </div>
         
                 <ul class="list-unstyled mt-3">
@@ -13,76 +13,54 @@
                     @for (friend of friendsList; track friend.id) {
                         <li class="d-flex align-items-center mb-3">
                             <div class="friend-img">
-                                <img [src]="friend.image" alt="friend" class="friend-avatar">
-                                <span class="status-indicator" [ngClass]="friend.status"></span>
+                                <img [src]="friend.profileImage" alt="friend" class="friend-avatar">
+                                <!-- <span class="status-indicator" [ngClass]="friend.status"></span> -->
                             </div>
                             <div class="ms-3">
-                                <p class="mb-0 fw-bold">{{ friend.name }}</p>
+                                <p class="mb-0 fw-bold">{{ friend.username }}</p>
                                 <small class="text-muted">{{ friend.statusMessage }}</small>
                             </div>
                         </li>
                     }
                 </ul>
         
-                <a href="#" class="see-all-friends">See all friends</a>
+                <!-- <a href="#" class="see-all-friends">See all friends</a> -->
             </div>
         </div>
         
         <!-- Status Bar Section -->
         <div class="col-lg-6 col-md-8 mb-3">
             <div class="status-bar p-3">
-                <div class="user-status d-flex justify-content-around">
-                    <!-- Your Status -->
-                    <div class="text-center">
-                        <div class="status-picture">
-                            <div class="status-div">
-                                <img src="../../assets/VibeShot.png" alt="Your Status" class="status-photo">
-                            </div>
-                        </div>
-                        <p class="mt-2 user-status-name">Your Status</p>
-                    </div>
-
-                    <!-- Other User Status -->
-                    @for (item of [0,1,2,3,4,5,6]; track $index) {
-                        <div class="text-center">
-                            <div class="status-picture">
-                                <div class="status-div">
-                                    <img src="../../assets/VibeShot.png" alt="User Status" class="status-photo">
-                                </div>
-                            </div>
-                            <p class="mt-2 user-status-name">User Status</p>
-                        </div>
-                    }
-                </div>
-                @for (item of [0,1,2,3,4,5]; track $index) {
+                
+                @for (item of ListOfPosts; track $index) {
                     <div class="post col-md-12">
                         <div class="post-header">
-                          <img [src]="profilePicture" class="profile-pic" alt="Profile Picture">
-                          <span class="username">{{ username }}</span>
+                          <img [src]="item?.profileImage" class="profile-pic" alt="Profile Picture">
+                          <span class="username">{{ item?.user?.display_name }}</span>
                         </div>
                     
                         <div class="post-container">
                             <div>
-                            <img [src]="postImage" class="post-image" alt="Post Image">
+                            <img [src]="item?.downloadedImage" class="post-image" alt="Post Image">
                             </div>
                         </div>
                         <div class="row m-3">
                             <div class="col-md-10 d-flex">
                                 <div class="mx-2 cursor-pointer">
-                                    <span (dblclick)="likePost()">
-                                    @if (liked) {
+                                    @if (liked || item.likedByCurrentUser) {
+                                        <span >
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                           </svg>
                                           
+                                        </span>
                                     }@else {
-                                       <span>
+                                       <span (dblclick)="likePost(item)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                                             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                                           </svg>
                                        </span>
                                     }
-                                </span>
                                     
                                 </div>
                                   <div class="mx-2 cursor-pointer" (click)="openCmntModal()">
@@ -104,14 +82,14 @@
                               </div>
                         </div>
                         <div class="post-actions">
-                          <span>{{ likes }} likes</span>
+                          <span>{{ item.likeCount }} likes</span>
                         </div>
                         <div class="post-caption">
-                          <strong>{{ username }}</strong> {{ caption }}
+                          <strong>{{ item?.user?.display_name }}</strong> {{ item?.caption }}
                         </div>
                         <div class="post-comments">
                             <a href="#" class="view-all-cmnt">View all {{ commentsCount }} comments</a>
-                            <p class="view-all-cmnt">5hrs Ago</p>
+                            <p class="view-all-cmnt">{{item?.timeAgo}}</p>
                         </div>
                         
                       </div>
@@ -126,21 +104,20 @@
                 <div class="suggestions-container">
                     <!-- User Profile Section -->
                     <div class="user-profile">
-                      <img [src]="user.profilePicture" class="profile-pic" alt="Profile Picture">
+                      <img [src]="profileImage" class="profile-pic" alt="Profile Picture">
                       <div>
-                        <span class="username">{{ user.username }}</span>
-                        <span class="name">{{ user.name }}</span>
+                        <span class="username">{{ UserDetails.display_name }}</span>
                       </div>
                     </div>
                   
                     <!-- Suggestions Header -->
                     <div class="suggestions-header">
                       <span>Suggestions For You</span>
-                      <a href="#" class="see-all">See All</a>
+                      <!-- <a href="#" class="see-all">See All</a> -->
                     </div>
                   
                     <!-- Suggested Users List -->
-                    <div class="suggestion" *ngFor="let suggestion of suggestions">
+                    <div class="suggestion" *ngFor="let suggestion of usersWithImages">
                       <div class="suggestion-user">
                         <div class="avatar">{{ suggestion.username.charAt(0).toUpperCase() }}</div>
                         <div class="user-info">
@@ -148,7 +125,7 @@
                           <span class="subtext">Suggested for you</span>
                         </div>
                       </div>
-                      <a href="#" class="follow-btn">Follow</a>
+                      <button class="follow-btn" (click)="followUser(suggestion.id)">Follow</button>
                     </div>
                   </div>
                   
